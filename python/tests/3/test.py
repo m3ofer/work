@@ -1,7 +1,5 @@
-import os, random, words, turtle as draw
-from tkinter import messagebox
-
-word = random.choice(words.hw_words)
+import os, turtle as draw
+word = "hamza"
 word = word.upper()
 reveal =list(len(word)*'_')
 lives = 7
@@ -58,6 +56,7 @@ def drawlost():
     draw.up()
     draw.left(90)
     draw.fd(350)
+    draw.done()
 
 def drawman(lives):
     if lives == 6:
@@ -72,7 +71,6 @@ def drawman(lives):
         drawlegs()
     if lives == 1:
         drawlost()
-        messagebox.showinfo("lost game","do you whant to exit")
 
 def check_letter(letter,word):
         for i in range(0,len(word)):
@@ -91,21 +89,19 @@ def status():
 
 while won == False and lives > 1:
 
-        status()
-        guess = input('one letter or full: ') 
-        guess = guess.upper()
-        if guess == word:
-            won = True
-        if len(guess) == 1 and guess in word:
-            won = check_letter(guess,word)
-        else:
-            lives -= 1
-            drawman(lives)
+    status()
+    guess = input('one letter or full: ')
+    guess = guess.upper()
+    if guess == word:
+        won = True
+    if len(guess) == 1 and guess in word:
+        won = check_letter(guess,word)
+    if guess not in word:
+        lives -= 1
+        drawman(lives)
 
 
 if won:
     print('win')
-    messagebox.showinfo("you did win","do you whant to exit")
-
 else:
     print('lost and the word was: ',word)
